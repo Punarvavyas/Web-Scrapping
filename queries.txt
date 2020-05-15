@@ -1,0 +1,34 @@
+select dep.department_name from department dep
+inner join faculty fac
+on dep.iddepartment = fac.iddepartment
+where fac.professor_lname like 'A%'
+group by dep.department_name
+having count(1)=
+(
+select count(1) from department dep
+inner join faculty fac
+on dep.iddepartment = fac.iddepartment
+where fac.professor_lname like 'A%'
+group by dep.department_name
+order by count(1) desc limit 1
+);
+
+
+
+
+select dep.department_name from department dep
+inner join programs pp
+on dep.iddepartment = pp.iddepartment
+ where program.programType = 'Undergraduate'
+group by dep.department_name
+having count(1)=
+(
+select dep.department_name from department dep
+inner join programs pp
+on dep.iddepartment = pp.iddepartment
+ where program.programType = 'Undergraduate'
+group by dep.department_name
+having count(1)=
+group by dept.department_name
+order by count(1) desc limit 1
+);
